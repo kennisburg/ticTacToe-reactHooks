@@ -32,18 +32,20 @@ function Board() {
     status = 'Next player: ' + (isXNext ? 'X' : 'O');
   }
 
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    nextSquares[i] = isXNext ? 'X' : 'O'
+    setIsXNext(!isXNext)
+    setSquares(nextSquares)
+  }
+
   function renderSquare(i) {
     return <Square
     value={squares[i]}
-    onClick={() => {
-      const nextSquares = squares.slice()
-      if (calculateWinner(squares) || squares[i]) {
-        return;
-      }
-      nextSquares[i] = isXNext ? 'X' : 'O'
-      setIsXNext(!isXNext)
-      setSquares(nextSquares)
-    }}
+    onClick={() => {handleClick(i)}}
     />;
   }
 
